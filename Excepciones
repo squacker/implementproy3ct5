@@ -1,1 +1,153 @@
+public class Producto {
+    private int id;
+    private String nombre;
+    private String ubicacion;
+    private double precio;
+    private double costo;
+    private double descuento;
+    private String categoria;
+    private String proveedor;
+    private int stockMin;
+    private int stockMax;
+    private int existencias;
+
+    // Getters and Setters con validaciones y excepciones
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) throws IllegalArgumentException {
+        if (id <= 0) {
+            throw new IllegalArgumentException("El ID debe ser un número positivo.");
+        }
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) throws IllegalArgumentException {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+        }
+        this.nombre = nombre;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) throws IllegalArgumentException {
+        if (ubicacion == null || ubicacion.trim().isEmpty()) {
+            throw new IllegalArgumentException("La ubicación no puede estar vacía.");
+        }
+        this.ubicacion = ubicacion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) throws IllegalArgumentException {
+        if (precio < 0) {
+            throw new IllegalArgumentException("El precio no puede ser negativo.");
+        }
+        this.precio = precio;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) throws IllegalArgumentException {
+        if (costo < 0) {
+            throw new IllegalArgumentException("El costo no puede ser negativo.");
+        }
+        this.costo = costo;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) throws IllegalArgumentException {
+        if (descuento < 0 || descuento > 100) {
+            throw new IllegalArgumentException("El descuento debe estar entre 0 y 100.");
+        }
+        this.descuento = descuento;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) throws IllegalArgumentException {
+        if (categoria == null || categoria.trim().isEmpty()) {
+            throw new IllegalArgumentException("La categoría no puede estar vacía.");
+        }
+        this.categoria = categoria;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) throws IllegalArgumentException {
+        if (proveedor == null || proveedor.trim().isEmpty()) {
+            throw new IllegalArgumentException("El proveedor no puede estar vacío.");
+        }
+        this.proveedor = proveedor;
+    }
+
+    public int getStockMin() {
+        return stockMin;
+    }
+
+    public void setStockMin(int stockMin) throws IllegalArgumentException {
+        if (stockMin < 0) {
+            throw new IllegalArgumentException("El stock mínimo no puede ser negativo.");
+        }
+        this.stockMin = stockMin;
+    }
+
+    public int getStockMax() {
+        return stockMax;
+    }
+
+    public void setStockMax(int stockMax) throws IllegalArgumentException {
+        if (stockMax < 0 || stockMax < stockMin) {
+            throw new IllegalArgumentException("El stock máximo debe ser mayor o igual al stock mínimo y no puede ser negativo.");
+        }
+        this.stockMax = stockMax;
+    }
+
+    public int getExistencias() {
+        return existencias;
+    }
+
+    public void setExistencias(int existencias) throws IllegalArgumentException {
+        if (existencias < 0 || existencias > stockMax) {
+            throw new IllegalArgumentException("Las existencias no pueden ser negativas ni mayores al stock máximo.");
+        }
+        this.existencias = existencias;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", precio=" + precio +
+                ", costo=" + costo +
+                ", descuento=" + descuento +
+                ", categoria='" + categoria + '\'' +
+                ", proveedor='" + proveedor + '\'' +
+                ", stockMin=" + stockMin +
+                ", stockMax=" + stockMax +
+                ", existencias=" + existencias +
+                '}';
+    }
+}
 
