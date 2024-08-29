@@ -1,3 +1,5 @@
+package com.mycompany.entrega;
+
 public class GestionProducto {
 
 // ATRIBUTOS

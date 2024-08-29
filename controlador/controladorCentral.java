@@ -1,14 +1,13 @@
+package com.mycompany.entrega;
+
 class ControladorCentral {
 
 
 // ATRIBUTOS
 
-    private static IGUPrincipal interfaz = new IGUPrincipal ();
-
+    private static InterfazPrincipal interfaz = new InterfazPrincipal ();
+    private static GestionVentas controladorVentas = new GestionVentas();
     private static GestionProducto controladorProducto = new GestionProducto();
-
-   
-
 
 // FUNCION MAIN 
 
@@ -24,24 +23,24 @@ class ControladorCentral {
 
             switch (opcion) {
 
-                case 1: // GESTIONAR PRODUCTOS
+                case 1: // GESTIONAR VENTAS
 
-                    controladorProducto.ejecutarControlador();
+                    controladorVentas.ejecutarControlador();
                     break;
 
                 case 2: // GESTIONAR Cliente
 
-                    controladorClientes.ejecutarControlador();
+                   
                     break;
 
                 case 3: // GESTIONAR Vendedor
 
-                    controladorVendedores.ejecutarControlador();
+                   
                     break;
 
-                case 4: // GESTIONAR Venta
+                case 4: // GESTIONAR PRODUCTOS
 
-                    controladorVentas.ejecutarControlador();
+                    controladorProducto.ejecutarControlador();
                     break;
 
                 case 0: // SALIR
