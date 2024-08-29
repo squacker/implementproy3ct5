@@ -1,0 +1,298 @@
+@startuml
+'Código puml para el diagrama de clases.
+'Autor Diego Ortega.
+
+'Clases por definir bien.
+-class IGUProducto{
+}
+
+-class IGUVenta{
+}
+
+package vista{
+
+class InterfazPrincipal{
+
+'Clase sin atributos propios.
++ {static} void main()
+
+}
+
+
+}
+
+
+package controlador{
+
+class GestionProducto{
+
+'Atributos.
+-productos: ArrayListProducto
+'Aún no está definida.
+-interfaz: IGUProducto 
+
+'Métodos.
++ void ejecutarControlador()
+
+}
+
+class GestionVentas{
+'Atributos.
+
+-ventas: ArrayList<ventas>
+-interfaz: IGUVentas
+
+'Métodos.
++ void ejecutarControlador()
+
+}
+
+class ControladorCentral{
+
+'Atributos.
+-{static}interfaz: InterfazPricnipal
+-{static}controladorVentas: GestionVentas
+-{static}controladorProducto: GestionProducto
+
+'El único método definido en esta clase es main.
++ {static} void main()
+
+}
+
+'Relaciones dentro del paquete.
+GestionVentas -- ControladorCentral
+GestionProducto -- ControladorCentral
+
+}
+
+package modelo{
+
+class Persona{
+
+'Atributos.
+-nombre: String
+-rfc: String
+-domicilio: String
+-telefono: String
+-zona: String
+
+'Métodos.
+
+'Constructor.
++ Persona(nombre: String, rfc: String, domicilio: String, telefono: String, zona: String)
+
+'Setters
++void setNombre(nombre: String)
++void setRfc(rfc: String)
++void setDomicilio(domicilio: String)
++void setTelefono(telefono: String)
++void setZona(zona: String)
+
+'Getters
++String getNombre(): nombre: String
++String getRfc(): rfc: String
++String setDomicilio(): domicilio: String
++String getTelefono(): telefono: String
++String getZona(): zona: String
+
+}
+
+class Vendedor{
+
+'Atributos.
+-fechaContratacion: String
+-porcentajeComisiones: double
+-idVendedor: int
+
+'Métodos.
+
+'Constructor.
++Vendedor(nombre: String, rfc: String, domicilio: String, telefono: String, zona: String
+    fechaContratacion: String, porcentajeComisiones: double, idVendedor: int)
+
+'Setters.
++void setFechaContratacion(fechaContratacion: String)
++void setPorcentajeComisiones(porcentajeComisiones: double)
++void setIdVendedor(idVendedor: int)
+
+'Getters,
++String getFechaContratacion(): fechaContratación: String
++double getPorcentajeComisiones(): porcentajeComisiones: double
++int getIdVendedor(): idVendedor: int
+
+'Método de captura de datos del vendedor.
++{static} Vendedor crearVendedor(): Vendedor
+
+}
+
+class Cliente{
+
+'Atributos.
+-fechaPrimeraCompra: String
+-idCliente: int
+
+'Métodos.
+
+'Constructor.
++Cliente(nombre: String, rfc: String, domicilio: String, telefono: String, zona: String,
+    fechaPrimeraCompra: String, idCliente: int)
+
+'Setters.
++void setFechaPrimeraCompra(fechaPrimeraCompra: String)
++void setIdCliente(idCliente: int)
+
+'Getters.
++String getFechaPrimeraCompra(): fechaPrimeraCompra: String
++int getIdCliente(): idCliente: String.
+
+'Método de captura de datos de cliente.
++{static} crearCliente(): Cliente
+
+}
+
+'La verdad ni idea de qué haga esta clase, pero pues ahí está.
+class Entrega{
+'Únicamente tiene el método main, ¿por qué?
++ {static} void main()
+
+}
+
+class Venta{
+
+'Atributos.
+-producto: Producto
+-costoUnitatio: double
+-costoTotal: double
+-fechaVenta: Date
+-zona: String
+-cliente: Cliente
+-vendedor: Vendedor
+-requiereFactura: boolean
+
+'Métodos.
+
+'Constructor.
++Venta(producto: Producto, costoUnitario: double, costoTotal: double, fechaVenta: Date,
+    zona: String, cliente: Cliente, vendedor: Vendedor, requiereFactura: boolean)
+
+'Getters.
++boolean getRequiereFactura(): requiereFactura: boolean
++Cliente getCliente(): cliente: Cliente
++Date getFechaVenta(): fechaVenta: Date
++Producto getProducto(): producto: Producto
++double getCostoTotal(): costoTotal: double
+
+
+'Crear una venta, devuelve un objeto anónimo del tipo Venta.
++{static} crearVenta(productos: Producto[], clientes: Cliente[], vendedores: Vendedor[]) : Venta
+
+-{static} buscarProductoPorId(productos: Producto[], id: int): producto: Producto
+-{static} buscarClientePorId(clientes: Cliente[], id: int): cliente: Cliente 
+-{static} buscarVendedorPorId(vendedores: Vendedor[], id: int): vendedor: Vendedor
+
+
+}
+
+class Producto{
+
+'Atributos.
+-id: int
+-nombre: String
+-ubicacion: String
+-precio: double
+-costo: double
+-descuento: double
+-categoria: String
+-proveedor: String
+-stockMin: int
+-stockMax: int
+-existencias: int
+
+'Métodos.
+
+'Constructor vacío.
++Producto()
+
+'Constructor paramétrico.
++Producto(id: int, nombre: String, ubicacion: String, preci: double, costo: double,
+    decuento: doible, categotia: String, proveedor: String, stockMin: int, stockMax: int,
+    existencias: int)
+
+'Setters.
++void setId(id: int)
++void setNombre(nombre: String)
++void setUbicacion(ubicacion: String)
++void setPrecio(precio: double)
++void setCosto(costo: double)
++void setDescuento(descuento: double)
++void setCategoria(categoria: String)
++void setProveedor(proveedor: String)
++void setStockMin(stockMin: int)
++void setStockMax(stockMax: int)
++void setExistencias(existencias: int)
+
+'Getters.
++int getId(): id: Int
++String getNombre(): nombre: String
++Sting getUbicacion(): ubicacion: String
++double getPrecio(): precio: String
++double getCosto(): costo: String
++double getDescuento(): descuento: doible
++String getCategoria(): categoria: String
++String getProveedor(): proveedor: String
++int getStockMin(): stockMin: int
++int getStockMax(): stockMax: int
++int getExistencias(): existencias: int
+
+}
+
+class Factura{
+
+'Atributos.
+-rfcCliente: String
+-nombreCliente: String
+-domicilioCliente: String
+-telefonoCliente: String
+-numeroFactura: int
+-fechaEmitida: Date
+-productos: List<Producto>
+-ipuestoTotal: double
+-costoTotal: double
+
+'Métodos.
+
+'Constructor.
++Factura(cliente: Cliente, numeroFactura: int, fechaEmitida: Date, productos: List<productos>)
+
+-double calcularImpuestoTotal(): totalImpuesto: double
+-double calcularCostoTotal(): total + impuestoTotal: double
+
+'Esto devuelve un objeto anónimo.
++String generarFactura(): String
+
+
+}
+
+'Relaciones.
+
+Persona <|-- Cliente
+Persona <|-- Vendedor
+
+Entrega -- Venta
+
+Venta -- Producto
+Venta -- Cliente
+Venta -- Vendedor
+
+Factura -- Producto
+
+
+}
+
+'Relaciones entre paquetes.
+IGUProducto - GestionProducto
+Producto -- GestionProducto
+
+IGUVenta - GestionVentas
+Venta -- GestionVentas
+@enduml
