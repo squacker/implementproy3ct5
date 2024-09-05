@@ -1,9 +1,8 @@
+//Clase que se encarga del manejo de ID no válida.
 public class InvalidIDException extends Exception{
-
-	//Clase que se encarga del manejo de ID no válida.
-	//
+	
 	//Constructor vacío.
-	public InvalidExceptionID(){
+	public InvalidIDException(){
 
 		super("Error: el ID es inválido.");
 	
