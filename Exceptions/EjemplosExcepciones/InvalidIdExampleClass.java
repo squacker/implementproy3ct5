@@ -29,10 +29,10 @@ public class InvalidIdExampleClass{
 			//Manejo de la excepción.
 			try{
 			
-				System.out.print("Ingrese una ID: ");
+				System.out.print("Ingrese un ID: ");
 				int id = entrada.nextInt();
 				validarId(id);
-				System.out.print("ID correcta. Continuando.");
+				System.out.print("ID correcto. Continuando.");
 				error = false;
 
 			} catch(InvalidIDException ex){
