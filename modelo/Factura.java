@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.entrega;
 
 import java.util.Date;
@@ -19,7 +15,6 @@ public class Factura {
     private double impuestoTotal;
     private double costoTotal;
 
-    // Constructor
     public Factura(Cliente cliente, int numeroFactura, Date fechaEmitida, List<Producto> productos) {
         this.rfcCliente = cliente.getRfc();
         this.nombreCliente = cliente.getNombre();
