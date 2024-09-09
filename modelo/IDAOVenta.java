@@ -11,6 +11,4 @@ public interface IDAOVenta {
     
     public NuevaVenta getVenta(int idVenta);
     
-    
-    
 }
