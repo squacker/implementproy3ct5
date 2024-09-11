@@ -1,25 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.entrega;
 
-
-import javax.swing.JOptionPane;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Venta {
-    private Producto producto; // Cambié de static a instancia para permitir que cada venta tenga su propio producto
+    private Producto producto;
     private double costoUnitario;
     private double costoTotal;
-    private Date fechaVenta;
+    private LocalDateTime fechaVenta;
     private String zona;
     private Cliente cliente;
     private Vendedor vendedor;
     private boolean requiereFactura;
 
-    // Constructor
-    public Venta(Producto producto, double costoUnitario, double costoTotal, Date fechaVenta, 
+    public Venta(Producto producto, double costoUnitario, double costoTotal, LocalDateTime fechaVenta, 
                  String zona, Cliente cliente, Vendedor vendedor, boolean requiereFactura) {
         this.producto = producto;
         this.costoUnitario = costoUnitario;
@@ -31,69 +24,26 @@ public class Venta {
         this.requiereFactura = requiereFactura;
     }
 
-    // Método para crear una venta 
-    public static Venta crearVenta(Producto[] productos, Cliente[] clientes, Vendedor[] vendedores) {
-        
-        // Seleccionar producto por ID
-        int productoId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del producto:"));
-        Producto producto = buscarProductoPorId(productos, productoId);
+    // Método para crear una venta
+    public static Venta crearVenta(Producto producto, double cantidad, LocalDateTime fechaVenta, 
+                                   String zona, Cliente cliente, Vendedor vendedor, boolean requiereFactura) {
 
         if (producto == null) {
-            throw new NullPointerException("El producto seleccionado no existe.");
+            throw new IllegalArgumentException("El producto no puede ser nulo.");
         }
 
-        double costoUnitario = producto.getPrecio(); // Ahora obtenemos el precio después de seleccionar el producto
-        double cantidad = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la cantidad vendida:"));
+        if (cliente == null) {
+            throw new IllegalArgumentException("El cliente no puede ser nulo.");
+        }
+
+        if (vendedor == null) {
+            throw new IllegalArgumentException("El vendedor no puede ser nulo.");
+        }
+
+        double costoUnitario = producto.getPrecio();
         double costoTotal = costoUnitario * cantidad;
-        Date fechaVenta = new Date(); // Fecha actual
-        String zona = JOptionPane.showInputDialog("Ingrese la zona de venta:");
-
-        // Seleccionar cliente por ID
-        int clienteId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del cliente:"));
-        Cliente cliente = buscarClientePorId(clientes, clienteId);
-
-        // Seleccionar vendedor por ID
-        int vendedorId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese ID del vendedor:"));
-        Vendedor vendedor = buscarVendedorPorId(vendedores, vendedorId);
-
-        // Preguntar si requiere factura
-        int respuestaFactura = JOptionPane.showConfirmDialog(null, "¿Requiere factura?", "Factura", JOptionPane.YES_NO_OPTION);
-        boolean requiereFactura = (respuestaFactura == JOptionPane.YES_OPTION);
 
         return new Venta(producto, costoUnitario, costoTotal, fechaVenta, zona, cliente, vendedor, requiereFactura);
-    }
-
-    // Buscar Producto
-    private static Producto buscarProductoPorId(Producto[] productos, int id) {
-        for (Producto producto : productos) {
-            if (producto.getId() == id) {
-                return producto;
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Producto con ID " + id + " no encontrado.");
-        return null;
-    }
-
-    // Buscar Cliente
-    private static Cliente buscarClientePorId(Cliente[] clientes, int id) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getIdCliente() == id) {
-                return cliente;
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Cliente con ID " + id + " no encontrado.");
-        return null;
-    }
-
-    // Buscar Vendedor
-    private static Vendedor buscarVendedorPorId(Vendedor[] vendedores, int id) {
-        for (Vendedor vendedor : vendedores) {
-            if (vendedor.getIdVendedor() == id) {
-                return vendedor;
-            }
-        }
-        JOptionPane.showMessageDialog(null, "Vendedor con ID " + id + " no encontrado.");
-        return null;
     }
 
     public boolean requiereFactura() {
@@ -104,7 +54,7 @@ public class Venta {
         return cliente;
     }
 
-    public Date getFechaVenta() {
+    public LocalDateTime getFechaVenta() {
         return fechaVenta;
     }
 

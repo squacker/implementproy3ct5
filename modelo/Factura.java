@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.entrega;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 public class Factura {
     private String rfcCliente;
@@ -14,13 +10,15 @@ public class Factura {
     private String domicilioCliente;
     private String telefonoCliente;
     private int numeroFactura;
-    private Date fechaEmitida;
+    private LocalDate fechaEmitida;
     private List<Producto> productos;
     private double impuestoTotal;
     private double costoTotal;
 
-    // Constructor
-    public Factura(Cliente cliente, int numeroFactura, Date fechaEmitida, List<Producto> productos) {
+    public Factura(Cliente cliente, int numeroFactura, LocalDate fechaEmitida, List<Producto> productos) {
+        if (cliente == null || productos == null || productos.isEmpty()) {
+            throw new IllegalArgumentException("Cliente y productos no pueden ser nulos o vacíos.");
+        }
         this.rfcCliente = cliente.getRfc();
         this.nombreCliente = cliente.getNombre();
         this.domicilioCliente = cliente.getDomicilio();
@@ -32,7 +30,6 @@ public class Factura {
         this.costoTotal = calcularCostoTotal();
     }
 
-    // Método para calcular el impuesto total
     private double calcularImpuestoTotal() {
         double totalImpuesto = 0;
         for (Producto producto : productos) {
@@ -41,36 +38,52 @@ public class Factura {
         return totalImpuesto;
     }
 
-    // Método para calcular el costo total
     private double calcularCostoTotal() {
         double total = 0;
         for (Producto producto : productos) {
             double precioConDescuento = producto.getPrecio() - producto.getDescuento();
-            total += precioConDescuento;
+            total += precioConDescuento * producto.getCantidad();
         }
         return total + impuestoTotal;
     }
 
-    // Método para generar la información de la factura
     public String generarFactura() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         StringBuilder factura = new StringBuilder();
-        factura.append("Factura N°: ").append(numeroFactura).append("\n");
-        factura.append("Fecha emitida: ").append(sdf.format(fechaEmitida)).append("\n");
-        factura.append("Cliente: ").append(nombreCliente).append("\n");
-        factura.append("RFC: ").append(rfcCliente).append("\n");
-        factura.append("Domicilio: ").append(domicilioCliente).append("\n");
-        factura.append("Teléfono: ").append(telefonoCliente).append("\n");
+        factura.append(String.format("Factura N°: %d\n", numeroFactura));
+        factura.append(String.format("Fecha emitida: %s\n", fechaEmitida));
+        factura.append(String.format("Cliente: %s\n", nombreCliente));
+        factura.append(String.format("RFC: %s\n", rfcCliente));
+        factura.append(String.format("Domicilio: %s\n", domicilioCliente));
+        factura.append(String.format("Teléfono: %s\n", telefonoCliente));
         factura.append("\nProductos:\n");
-        
+
         for (Producto producto : productos) {
-            factura.append("- ").append(producto.getNombre()).append(": $").append(producto.getPrecio())
-                    .append(" (Descuento: $").append(producto.getDescuento()).append(")\n");
+            factura.append(String.format("- %s: $%.2f (Descuento: $%.2f)\n",
+                    producto.getNombre(), producto.getPrecio(), producto.getDescuento()));
         }
-        
-        factura.append("\nImpuesto Total: $").append(impuestoTotal).append("\n");
-        factura.append("Costo Total: $").append(costoTotal).append("\n");
+
+        factura.append(String.format("\nImpuesto Total: $%.2f\n", impuestoTotal));
+        factura.append(String.format("Costo Total: $%.2f\n", costoTotal));
 
         return factura.toString();
+    }
+    
+    public int getNumeroFactura() {
+        
+        return numeroFactura;
+    
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Factura factura = (Factura) obj;
+        return numeroFactura == factura.numeroFactura;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroFactura);
     }
 }
