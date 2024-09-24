@@ -1,0 +1,189 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
+public class SimpleSwingExample {
+
+    public static void main(String[] args) {
+        // Crear el JFrame principal
+        JFrame frame = new JFrame("Sistema de Venta de Productos");
+        frame.setSize(300, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Crear el panel de inicio con un botón "Entrar"
+        JPanel panelInicio = new JPanel();
+        panelInicio.setLayout(new GridBagLayout());
+        panelInicio.setBackground(Color.decode("#F0F0F0"));
+
+        JButton btnEntrar = new JButton("Entrar");
+        btnEntrar.setFont(new Font("Arial", Font.BOLD, 50));
+        btnEntrar.setBackground(Color.decode("#3498DB"));
+        btnEntrar.setForeground(Color.WHITE);
+        /*
+        JButton btnHola = new JButton("Hola");
+        btnHola.setFont(new Font("Arial", Font.BOLD, 50));
+        btnHola.setBackground(Color.decode("#3498DB"));
+        btnHola.setBackground(Color.red);
+        */
+        panelInicio.add(btnEntrar);
+        
+        //panelInicio.add(btnHola);
+
+        frame.add(panelInicio);
+
+        // Crear el menú principal
+        JPanel panelMenu = new JPanel();
+        panelMenu.setLayout(new GridLayout(5, 1, 10, 20));
+        panelMenu.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panelMenu.setBackground(Color.decode("#E0E0E0"));
+
+        Font fuenteBotones = new Font("Arial", Font.BOLD, 16);
+
+        JButton btnClientes = new JButton("Clientes");
+        estilizarBoton(btnClientes, fuenteBotones, "#3498DB", Color.WHITE);
+
+        JButton btnVendedores = new JButton("Vendedores");
+        estilizarBoton(btnVendedores, fuenteBotones, "#2ECC71", Color.WHITE);
+
+        JButton btnProductos = new JButton("Productos");
+        estilizarBoton(btnProductos, fuenteBotones, "#E67E22", Color.WHITE);
+
+        JButton btnVentas = new JButton("Ventas");
+        estilizarBoton(btnVentas, fuenteBotones, "#9B59B6", Color.WHITE);
+
+        JButton btnFacturacion = new JButton("Facturación");
+        estilizarBoton(btnFacturacion, fuenteBotones, "#E74C3C", Color.WHITE);
+
+        panelMenu.add(btnClientes);
+        panelMenu.add(btnVendedores);
+        panelMenu.add(btnProductos);
+        panelMenu.add(btnVentas);
+        panelMenu.add(btnFacturacion);
+
+        // Crear paneles individuales para cada sección
+        JPanel panelClientes = crearPanelConCampos("Registro de Clientes", "#3498DB", "Ingrese el nombre del cliente:", "ingrese el teléfono del cliente:", "Ingrese el email del cliente:");
+        JPanel panelVendedores = crearPanelConCampos("Registro de Vendedores", "#2ECC71", "Nombre:", "ID:", "Comisión:");
+        JPanel panelProductos = crearPanelConCampos("Registro de Productos", "#E67E22", "Nombre:", "Precio:", "Stock:");
+        JPanel panelVentas = crearPanelConCampos("Registro de Ventas", "#9B59B6", "Producto:", "Cantidad:", "Total:");
+        JPanel panelFacturacion = crearPanelConCampos("Generar Factura", "#E74C3C", "Número de Factura:");
+
+        // Botón "Volver al Menú Principal" para regresar al menú principal en cada panel
+        JButton btnVolverClientes = new JButton("Volver al Menú Principal");
+        JButton btnVolverVendedores = new JButton("Volver al Menú Principal");
+        JButton btnVolverProductos = new JButton("Volver al Menú Principal");
+        JButton btnVolverVentas = new JButton("Volver al Menú Principal");
+        JButton btnVolverFacturacion = new JButton("Volver al Menú Principal");
+
+        estilizarBoton(btnVolverClientes, new Font("Arial", Font.BOLD, 14), "#F39C12", Color.WHITE);
+        estilizarBoton(btnVolverVendedores, new Font("Arial", Font.BOLD, 14), "#F39C12", Color.WHITE);
+        estilizarBoton(btnVolverProductos, new Font("Arial", Font.BOLD, 14), "#F39C12", Color.WHITE);
+        estilizarBoton(btnVolverVentas, new Font("Arial", Font.BOLD, 14), "#F39C12", Color.WHITE);
+        estilizarBoton(btnVolverFacturacion, new Font("Arial", Font.BOLD, 14), "#F39C12", Color.WHITE);
+
+        panelClientes.add(btnVolverClientes);
+        panelVendedores.add(btnVolverVendedores);
+        panelProductos.add(btnVolverProductos);
+        panelVentas.add(btnVolverVentas);
+        panelFacturacion.add(btnVolverFacturacion);
+
+        // Mostrar la ventana
+        frame.setVisible(true);
+
+        // Listener para el botón "Entrar"
+        btnEntrar.addActionListener((ActionEvent e) -> {
+            frame.remove(panelInicio); // Quitar el panel de inicio
+            frame.add(panelMenu);      // Añadir el menú principal
+            frame.revalidate();
+            frame.repaint();
+        });
+
+        // Listeners para los botones del menú principal
+        btnClientes.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelMenu, panelClientes);
+        });
+
+        btnVendedores.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelMenu, panelVendedores);
+        });
+
+        btnProductos.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelMenu, panelProductos);
+        });
+
+        btnVentas.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelMenu, panelVentas);
+        });
+
+        btnFacturacion.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelMenu, panelFacturacion);
+        });
+
+        // Listeners para los botones "Volver al Menú Principal"
+        btnVolverClientes.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelClientes, panelMenu);
+        });
+
+        btnVolverVendedores.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelVendedores, panelMenu);
+        });
+
+        btnVolverProductos.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelProductos, panelMenu);
+        });
+
+        btnVolverVentas.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelVentas, panelMenu);
+        });
+
+        btnVolverFacturacion.addActionListener((ActionEvent e) -> {
+            mostrarPanel(frame, panelFacturacion, panelMenu);
+        });
+    }
+
+    // Método para estilizar botones
+    public static void estilizarBoton(JButton boton, Font fuente, String colorFondo, Color colorTexto) {
+        boton.setFont(fuente);
+        boton.setBackground(Color.decode(colorFondo));
+        boton.setForeground(colorTexto);
+        boton.setFocusPainted(false);
+    }
+
+    // Método para crear un panel con campos de entrada
+    public static JPanel crearPanelConCampos(String titulo, String colorFondo, String... etiquetas) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(etiquetas.length + 4, 2, 10, 10)); // +1 para el botón
+        panel.setBackground(Color.decode(colorFondo));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel labelTitulo = new JLabel(titulo);
+        labelTitulo.setForeground(Color.WHITE);
+        labelTitulo.setFont(new Font("Arial", Font.BOLD, 18));
+        panel.add(labelTitulo);
+        panel.add(new JLabel("")); // Espacio vacío para el layout
+
+        // Crear los campos y etiquetas
+        for (String etiqueta : etiquetas) {
+            JLabel label = new JLabel(etiqueta);
+            label.setForeground(Color.WHITE);
+            JTextField textField = new JTextField(15);
+            panel.add(label);
+            panel.add(textField);
+        }
+
+        // Botón de registro
+        JButton btnRegistrar = new JButton("Registrar");
+        estilizarBoton(btnRegistrar, new Font("Arial", Font.BOLD, 14), "#1ABC9C", Color.WHITE);
+        panel.add(new JLabel("")); // Espacio vacío para el layout
+        panel.add(btnRegistrar);
+
+        return panel;
+    }
+
+    // Método para mostrar un panel específico
+    public static void mostrarPanel(JFrame frame, JPanel panelActual, JPanel panelNuevo) {
+        frame.remove(panelActual); // Quitar el panel actual
+        frame.add(panelNuevo);     // Añadir el panel nuevo
+        frame.revalidate();        // Refrescar el contenido
+        frame.repaint();
+    }
+}
